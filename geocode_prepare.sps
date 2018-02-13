@@ -445,3 +445,66 @@ CTABLES
   /CRITERIA CILEVEL=95.
   
   * verdere afwerking nog nodig!
+  
+  
+SAVE OUTFILE='C:\Users\plu3532\Documents\crab\verwerkt\mismatch.sav'
+  /COMPRESSED.
+
+dataset activate huisnr.
+alter type niscode_crabstraatnaam (a5).
+if niscode_crabstraatnaam=geostatsec_niscode type=1.
+if niscode_crabstraatnaam~=geostatsec_niscode & geostatsec_niscode="" type=2.
+if niscode_crabstraatnaam~=geostatsec_niscode & geostatsec_niscode~="" type=3.
+value labels type
+1 'OK'
+2 'geen geo-gemeente'
+3 'verschillende geo-en crab-gemeente'.
+
+
+
+match files
+/file=*
+/keep=huisnrid
+statsec
+x
+y
+straatnaam_crabintern
+straatnaam_crableesbaar
+huisnr
+geostatsec_niscode
+niscode_crabstraatnaam
+type.
+
+rename variables (huisnrid
+statsec
+x
+y
+straatnaam_crabintern
+straatnaam_crableesbaar
+huisnr
+geostatsec_niscode
+niscode_crabstraatnaam
+type=
+geocode_huisnrid
+geocode_statsec
+geocode_x
+geocode_y
+geocode_straatnaam_crabintern
+geocode_straatnaam_crableesbaar
+geocode_crabhuisnr
+geocode_niscode_statsec
+geocode_niscode_crabintern
+geocode_typematch).
+string geocode_statsec_clean (a9).
+if geocode_statsec="" geocode_statsec_clean=concat(geocode_niscode_crabintern,"ZZZZ").
+if geocode_statsec="" & geocode_niscode_crabintern="" geocode_statsec_clean="99999ZZZZ".
+if geocode_statsec~="" & geocode_niscode_crabintern=geocode_niscode_statsec geocode_statsec_clean=geocode_statsec.
+if geocode_statsec~="" & geocode_niscode_crabintern~=geocode_niscode_statsec & geocode_niscode_statsec~="" geocode_statsec_clean=concat(geocode_niscode_crabintern,"ZZZZ").
+EXECUTE.
+
+sort cases geocode_huisnrid (a).
+
+
+SAVE OUTFILE='C:\Users\plu3532\Documents\crab\verwerkt\koppel_statsec.sav'
+  /COMPRESSED.
+
