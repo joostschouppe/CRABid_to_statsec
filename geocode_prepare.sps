@@ -5,33 +5,21 @@
 * opgelet: na unzippen 13 gig!
 
 * pak de relaties
-
 * hang de objecten eraan
-
 * maak keuzes
-
 * breng naar huisnummers.
-
-* doe sectorenmatch.
-
+* voeg sectoren toe.
 * sla op.
 
 DOELSTELLING
 - huisnummers (en busnummers?) met één XY-coordinaat en een statistische sector
 - ook gehistoriseerde huisnummers, toch als er geen nieuwe versie van is
-- coordinaat bij voorkeur door gemeente, dan GRB gebouw, dan GRB perceel, dan andere
-
-
-
-
+- coordinaat bij voorkeur door gemeente, dan GRB gebouw, dan GRB perceel, dan andere bron
 
 HUISNUMMER > hou recentste versie over
 > verrijk met XY
 >> open terreinobject huisnummer
 >>> verreik met terreinobject
-
-
-
 
 
 * ADRESPOSITIES.
